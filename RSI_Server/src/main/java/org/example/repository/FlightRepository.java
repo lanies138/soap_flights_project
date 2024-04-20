@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
-import org.example.flight.Flight;
+import org.example.reservations.Flight;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
@@ -33,11 +33,12 @@ public class FlightRepository {
         flights.put(nextId++, flight2);
     }
     
-    public void addFlight(Flight flight) {
+    public Flight addFlight(Flight flight) {
         flights.put(nextId++, flight);
+        return flight;
     }
     
-    public Flight getFlightById(int id) {
+    public Flight getFlightById(Integer id) {
         Assert.notNull(id, "The id must not be null");
         return flights.get(id);
     }
@@ -74,19 +75,18 @@ public class FlightRepository {
                 .collect(Collectors.toList());
     }
     
-    public boolean updateFlight(int id, Flight flight) {
+    public Flight updateFlight(Integer id, Flight flight) {
         if (flights.containsKey(id)) {
             flights.put(id, flight);
-            return true;
+            return flight;
         }
-        return false;
+        return null;
     }
     
-    public boolean deleteFlight(int id) {
+    public Flight deleteFlight(Integer id) {
         if (flights.containsKey(id)) {
-            flights.remove(id);
-            return true;
+            return flights.remove(id);
         }
-        return false;
+        return null;
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.xml.xsd.XsdSchema;
 @EnableWs
 @Configuration
 public class WebServiceConfig {
+    
     @Bean
     public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
@@ -22,18 +23,18 @@ public class WebServiceConfig {
         return new ServletRegistrationBean<>(servlet, "/ws/*");
     }
     
-    @Bean(name = "flights")
-    public DefaultWsdl11Definition flightsWsdl11Definition(XsdSchema flightsSchema) {
+    @Bean(name = "reservations")
+    public DefaultWsdl11Definition reservationsWsdl11Definition(XsdSchema flightsSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("FlightsPort");
+        wsdl11Definition.setPortTypeName("ReservationsPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://ws.flights.com");
+        wsdl11Definition.setTargetNamespace("http://ws.reservations.com");
         wsdl11Definition.setSchema(flightsSchema);
         return wsdl11Definition;
     }
     
     @Bean
     public XsdSchema flightsSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/xsd/flights.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/xsd/reservations.xsd"));
     }
 }

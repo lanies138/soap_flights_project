@@ -58,7 +58,7 @@
             </goals>
             <configuration>
               <sources>
-                <source>src/main/resources/xsd/flights.xsd</source>
+                <source>src/main/resources/xsd/reservations.xsd</source>
               </sources>
               <outputDirectory>${project.build.directory}/generated-sources/jaxb</outputDirectory>
               <clearOutputDir>true</clearOutputDir>

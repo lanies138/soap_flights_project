@@ -1,11 +1,15 @@
 package org.example.service.impl;
 
-import org.example.flight.GetFlightByDateResponse;
-import org.example.flight.GetFlightByFromCityResponse;
-import org.example.flight.GetFlightByIdResponse;
-import org.example.flight.GetFlightByTimeResponse;
-import org.example.flight.GetFlightByToCityResponse;
 import org.example.repository.FlightRepository;
+import org.example.reservations.AddFlightResponse;
+import org.example.reservations.DeleteFlightResponse;
+import org.example.reservations.Flight;
+import org.example.reservations.GetFlightByDateResponse;
+import org.example.reservations.GetFlightByFromCityResponse;
+import org.example.reservations.GetFlightByIdResponse;
+import org.example.reservations.GetFlightByTimeResponse;
+import org.example.reservations.GetFlightByToCityResponse;
+import org.example.reservations.UpdateFlightResponse;
 import org.example.service.FlightService;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +20,13 @@ public class FlightServiceImpl implements FlightService {
     
     public FlightServiceImpl(FlightRepository flightRepository) {
         this.flightRepository = flightRepository;
+    }
+    
+    @Override
+    public AddFlightResponse addFlight(Flight flight) {
+        AddFlightResponse response = new AddFlightResponse();
+        response.setFlight(flightRepository.addFlight(flight));
+        return response;
     }
     
     @Override
@@ -50,6 +61,20 @@ public class FlightServiceImpl implements FlightService {
     public GetFlightByTimeResponse getFlightByTime(String time) {
         GetFlightByTimeResponse response = new GetFlightByTimeResponse();
         response.getFlights().addAll(flightRepository.getFlightByTime(time));
+        return response;
+    }
+    
+    @Override
+    public UpdateFlightResponse updateFlight(Integer id, Flight flight) {
+        UpdateFlightResponse response = new UpdateFlightResponse();
+        response.setFlight(flightRepository.updateFlight(id, flight));
+        return response;
+    }
+    
+    @Override
+    public DeleteFlightResponse deleteFlight(Integer id) {
+        DeleteFlightResponse response = new DeleteFlightResponse();
+        response.setFlight(flightRepository.deleteFlight(id));
         return response;
     }
 }

@@ -1,0 +1,266 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:tns="http://example.org/reservations"
+  targetNamespace="http://example.org/reservations"
+  elementFormDefault="qualified">
+
+  <!--..............Flights section.............-->
+  <xs:complexType name="flight">
+    <xs:sequence>
+      <xs:element name="fromCity" type="xs:string"/>
+      <xs:element name="toCity" type="xs:string"/>
+      <xs:element name="date" type="xs:string"/>
+      <xs:element name="time" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!--  AddFlight-->
+  <xs:element name="AddFlightRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="flight" type="tns:flight"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="AddFlightResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="flight" type="tns:flight"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  GetFlightById-->
+  <xs:element name="GetFlightByIdRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="GetFlightByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="flight" type="tns:flight"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  GetFlightByFromCity-->
+  <xs:element name="GetFlightByFromCityRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="fromCity" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="GetFlightByFromCityResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="flights" minOccurs="0" maxOccurs="unbounded" type="tns:flight"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  GetFlightByToCity-->
+  <xs:element name="GetFlightByToCityRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="toCity" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="GetFlightByToCityResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="flights" minOccurs="0" maxOccurs="unbounded" type="tns:flight"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  GetFlightByDate-->
+  <xs:element name="GetFlightByDateRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="date" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="GetFlightByDateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="flights" minOccurs="0" maxOccurs="unbounded" type="tns:flight"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  GetFlightByTime-->
+  <xs:element name="GetFlightByTimeRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="time" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="GetFlightByTimeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="flights" minOccurs="0" maxOccurs="unbounded" type="tns:flight"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  UpdateFlight-->
+  <xs:element name="UpdateFlightRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:int"/>
+        <xs:element name="flight" type="tns:flight"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UpdateFlightResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="flight" type="tns:flight"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  DeleteFlight-->
+  <xs:element name="DeleteFlightRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="DeleteFlightResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="flight" type="tns:flight"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--..............Ticket section.............-->
+  <xs:complexType name="ticket">
+    <xs:sequence>
+      <xs:element name="flight" type="tns:flight"/>
+      <xs:element name="passengerName" type="xs:string"/>
+      <xs:element name="price" type="xs:int"/>
+      <xs:element name="status" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!--  AddTicket-->
+  <xs:element name="AddTicketRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ticket" type="tns:ticket"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="AddTicketResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ticket" type="tns:ticket"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  GetTicketById-->
+  <xs:element name="GetTicketByIdRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="GetTicketByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ticket" type="tns:ticket"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  GetTicketByPassengerName-->
+  <xs:element name="GetTicketByPassengerNameRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="passengerName" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="GetTicketByPassengerNameResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="tickets" minOccurs="0" maxOccurs="unbounded" type="tns:ticket"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  GetTicketByStatus-->
+  <xs:element name="GetTicketByStatusRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="status" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="GetTicketByStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="tickets" minOccurs="0" maxOccurs="unbounded" type="tns:ticket"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  UpdateTicket-->
+  <xs:element name="UpdateTicketRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:int"/>
+        <xs:element name="ticket" type="tns:ticket"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UpdateTicketResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ticket" type="tns:ticket"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  DeleteTicket-->
+  <xs:element name="DeleteTicketRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="DeleteTicketResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ticket" type="tns:ticket"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
