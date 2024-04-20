@@ -4,11 +4,11 @@ import org.example.repository.FlightRepository;
 import org.example.reservations.AddFlightResponse;
 import org.example.reservations.DeleteFlightResponse;
 import org.example.reservations.Flight;
-import org.example.reservations.GetFlightByDateResponse;
-import org.example.reservations.GetFlightByFromCityResponse;
+import org.example.reservations.GetFlightsByDateResponse;
+import org.example.reservations.GetFlightsByFromCityResponse;
 import org.example.reservations.GetFlightByIdResponse;
-import org.example.reservations.GetFlightByTimeResponse;
-import org.example.reservations.GetFlightByToCityResponse;
+import org.example.reservations.GetFlightsByTimeResponse;
+import org.example.reservations.GetFlightsByToCityResponse;
 import org.example.reservations.UpdateFlightResponse;
 import org.example.service.FlightService;
 import org.springframework.stereotype.Service;
@@ -37,30 +37,30 @@ public class FlightServiceImpl implements FlightService {
     }
     
     @Override
-    public GetFlightByFromCityResponse getFlightByFromCity(String fromCity) {
-        GetFlightByFromCityResponse response = new GetFlightByFromCityResponse();
-        response.getFlights().addAll(flightRepository.getFlightByFromCity(fromCity));
+    public GetFlightsByFromCityResponse getFlightsByFromCity(String fromCity) {
+        GetFlightsByFromCityResponse response = new GetFlightsByFromCityResponse();
+        response.getFlights().addAll(flightRepository.getFlightsByFromCity(fromCity));
         return response;
     }
     
     @Override
-    public GetFlightByToCityResponse getFlightByToCity(String toCity) {
-        GetFlightByToCityResponse response = new GetFlightByToCityResponse();
-        response.getFlights().addAll(flightRepository.getFlightByToCity(toCity));
+    public GetFlightsByToCityResponse getFlightsByToCity(String toCity) {
+        GetFlightsByToCityResponse response = new GetFlightsByToCityResponse();
+        response.getFlights().addAll(flightRepository.getFlightsByToCity(toCity));
         return response;
     }
     
     @Override
-    public GetFlightByDateResponse getFlightByDate(String date) {
-        GetFlightByDateResponse response = new GetFlightByDateResponse();
-        response.getFlights().addAll(flightRepository.getFlightByDate(date));
+    public GetFlightsByDateResponse getFlightsByDate(String date) {
+        GetFlightsByDateResponse response = new GetFlightsByDateResponse();
+        response.getFlights().addAll(flightRepository.getFlightsByDate(date));
         return response;
     }
     
     @Override
-    public GetFlightByTimeResponse getFlightByTime(String time) {
-        GetFlightByTimeResponse response = new GetFlightByTimeResponse();
-        response.getFlights().addAll(flightRepository.getFlightByTime(time));
+    public GetFlightsByTimeResponse getFlightsByTime(String time) {
+        GetFlightsByTimeResponse response = new GetFlightsByTimeResponse();
+        response.getFlights().addAll(flightRepository.getFlightsByTime(time));
         return response;
     }
     

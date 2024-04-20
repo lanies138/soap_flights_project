@@ -6,10 +6,10 @@ import org.example.reservations.DeleteTicketRequest;
 import org.example.reservations.DeleteTicketResponse;
 import org.example.reservations.GetTicketByIdRequest;
 import org.example.reservations.GetTicketByIdResponse;
-import org.example.reservations.GetTicketByPassengerNameRequest;
-import org.example.reservations.GetTicketByPassengerNameResponse;
-import org.example.reservations.GetTicketByStatusRequest;
-import org.example.reservations.GetTicketByStatusResponse;
+import org.example.reservations.GetTicketsByPassengerNameRequest;
+import org.example.reservations.GetTicketsByPassengerNameResponse;
+import org.example.reservations.GetTicketsByStatusRequest;
+import org.example.reservations.GetTicketsByStatusResponse;
 import org.example.reservations.UpdateTicketRequest;
 import org.example.reservations.UpdateTicketResponse;
 import org.example.service.TicketService;
@@ -41,16 +41,16 @@ public class TicketEndpoint {
         return ticketService.getTicketById(request.getId());
     }
     
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetTicketByPassengerNameRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetTicketsByPassengerNameRequest")
     @ResponsePayload
-    public GetTicketByPassengerNameResponse getTicketByPassengerName(@RequestPayload GetTicketByPassengerNameRequest request) {
-        return ticketService.getTicketByPassengerName(request.getPassengerName());
+    public GetTicketsByPassengerNameResponse getTicketsByPassengerName(@RequestPayload GetTicketsByPassengerNameRequest request) {
+        return ticketService.getTicketsByPassengerName(request.getPassengerName());
     }
     
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetTicketByStatusRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetTicketsByStatusRequest")
     @ResponsePayload
-    public GetTicketByStatusResponse getTicketByStatus(@RequestPayload GetTicketByStatusRequest request) {
-        return ticketService.getTicketByStatus(request.getStatus());
+    public GetTicketsByStatusResponse getTicketsByStatus(@RequestPayload GetTicketsByStatusRequest request) {
+        return ticketService.getTicketsByStatus(request.getStatus());
     }
     
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "UpdateTicketRequest")

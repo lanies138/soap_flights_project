@@ -48,7 +48,7 @@ public class TicketRepository {
         return tickets.get(id);
     }
     
-    public List<Ticket> getTicketByPassengerName(String passengerName) {
+    public List<Ticket> getTicketsByPassengerName(String passengerName) {
         Assert.notNull(passengerName, "The passengerName must not be null");
         return tickets.values()
                 .stream()
@@ -56,7 +56,7 @@ public class TicketRepository {
                 .collect(Collectors.toList());
     }
     
-    public List<Ticket> getTicketByStatus(String status) {
+    public List<Ticket> getTicketsByStatus(String status) {
         Assert.notNull(status, "The status must not be null");
         return tickets.values()
                 .stream()

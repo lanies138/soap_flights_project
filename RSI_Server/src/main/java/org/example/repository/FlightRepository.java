@@ -43,7 +43,7 @@ public class FlightRepository {
         return flights.get(id);
     }
     
-    public List<Flight> getFlightByFromCity(String fromCity) {
+    public List<Flight> getFlightsByFromCity(String fromCity) {
         Assert.notNull(fromCity, "The fromCity must not be null");
         return flights.values()
                 .stream()
@@ -51,7 +51,7 @@ public class FlightRepository {
                 .collect(Collectors.toList());
     }
     
-    public List<Flight> getFlightByToCity(String toCity) {
+    public List<Flight> getFlightsByToCity(String toCity) {
         Assert.notNull(toCity, "The toCity must not be null");
         return flights.values()
                 .stream()
@@ -59,7 +59,7 @@ public class FlightRepository {
                 .collect(Collectors.toList());
     }
     
-    public List<Flight> getFlightByDate(String date) {
+    public List<Flight> getFlightsByDate(String date) {
         Assert.notNull(date, "The date must not be null");
         return flights.values()
                 .stream()
@@ -67,7 +67,7 @@ public class FlightRepository {
                 .collect(Collectors.toList());
     }
     
-    public List<Flight> getFlightByTime(String time) {
+    public List<Flight> getFlightsByTime(String time) {
         Assert.notNull(time, "The time must not be null");
         return flights.values()
                 .stream()

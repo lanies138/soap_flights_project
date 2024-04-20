@@ -47,8 +47,8 @@
     </xs:complexType>
   </xs:element>
 
-  <!--  GetFlightByFromCity-->
-  <xs:element name="GetFlightByFromCityRequest">
+  <!--  GetFlightsByFromCity-->
+  <xs:element name="GetFlightsByFromCityRequest">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="fromCity" type="xs:string"/>
@@ -56,7 +56,7 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="GetFlightByFromCityResponse">
+  <xs:element name="GetFlightsByFromCityResponse">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="flights" minOccurs="0" maxOccurs="unbounded" type="tns:flight"/>
@@ -64,8 +64,8 @@
     </xs:complexType>
   </xs:element>
 
-  <!--  GetFlightByToCity-->
-  <xs:element name="GetFlightByToCityRequest">
+  <!--  GetFlightsByToCity-->
+  <xs:element name="GetFlightsByToCityRequest">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="toCity" type="xs:string"/>
@@ -73,7 +73,7 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="GetFlightByToCityResponse">
+  <xs:element name="GetFlightsByToCityResponse">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="flights" minOccurs="0" maxOccurs="unbounded" type="tns:flight"/>
@@ -81,8 +81,8 @@
     </xs:complexType>
   </xs:element>
 
-  <!--  GetFlightByDate-->
-  <xs:element name="GetFlightByDateRequest">
+  <!--  GetFlightsByDate-->
+  <xs:element name="GetFlightsByDateRequest">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="date" type="xs:string"/>
@@ -90,7 +90,7 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="GetFlightByDateResponse">
+  <xs:element name="GetFlightsByDateResponse">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="flights" minOccurs="0" maxOccurs="unbounded" type="tns:flight"/>
@@ -98,8 +98,8 @@
     </xs:complexType>
   </xs:element>
 
-  <!--  GetFlightByTime-->
-  <xs:element name="GetFlightByTimeRequest">
+  <!--  GetFlightsByTime-->
+  <xs:element name="GetFlightsByTimeRequest">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="time" type="xs:string"/>
@@ -107,7 +107,7 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="GetFlightByTimeResponse">
+  <xs:element name="GetFlightsByTimeResponse">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="flights" minOccurs="0" maxOccurs="unbounded" type="tns:flight"/>
@@ -194,8 +194,8 @@
     </xs:complexType>
   </xs:element>
 
-  <!--  GetTicketByPassengerName-->
-  <xs:element name="GetTicketByPassengerNameRequest">
+  <!--  GetTicketsByPassengerName-->
+  <xs:element name="GetTicketsByPassengerNameRequest">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="passengerName" type="xs:string"/>
@@ -203,7 +203,7 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="GetTicketByPassengerNameResponse">
+  <xs:element name="GetTicketsByPassengerNameResponse">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="tickets" minOccurs="0" maxOccurs="unbounded" type="tns:ticket"/>
@@ -211,8 +211,8 @@
     </xs:complexType>
   </xs:element>
 
-  <!--  GetTicketByStatus-->
-  <xs:element name="GetTicketByStatusRequest">
+  <!--  GetTicketsByStatus-->
+  <xs:element name="GetTicketsByStatusRequest">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="status" type="xs:string"/>
@@ -220,7 +220,7 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="GetTicketByStatusResponse">
+  <xs:element name="GetTicketsByStatusResponse">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="tickets" minOccurs="0" maxOccurs="unbounded" type="tns:ticket"/>

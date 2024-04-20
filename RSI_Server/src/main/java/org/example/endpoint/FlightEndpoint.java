@@ -4,16 +4,16 @@ import org.example.reservations.AddFlightRequest;
 import org.example.reservations.AddFlightResponse;
 import org.example.reservations.DeleteFlightRequest;
 import org.example.reservations.DeleteFlightResponse;
-import org.example.reservations.GetFlightByDateRequest;
-import org.example.reservations.GetFlightByDateResponse;
-import org.example.reservations.GetFlightByFromCityRequest;
-import org.example.reservations.GetFlightByFromCityResponse;
 import org.example.reservations.GetFlightByIdRequest;
 import org.example.reservations.GetFlightByIdResponse;
-import org.example.reservations.GetFlightByTimeRequest;
-import org.example.reservations.GetFlightByTimeResponse;
-import org.example.reservations.GetFlightByToCityRequest;
-import org.example.reservations.GetFlightByToCityResponse;
+import org.example.reservations.GetFlightsByDateRequest;
+import org.example.reservations.GetFlightsByDateResponse;
+import org.example.reservations.GetFlightsByFromCityRequest;
+import org.example.reservations.GetFlightsByFromCityResponse;
+import org.example.reservations.GetFlightsByTimeRequest;
+import org.example.reservations.GetFlightsByTimeResponse;
+import org.example.reservations.GetFlightsByToCityRequest;
+import org.example.reservations.GetFlightsByToCityResponse;
 import org.example.reservations.UpdateFlightRequest;
 import org.example.reservations.UpdateFlightResponse;
 import org.example.service.FlightService;
@@ -45,28 +45,28 @@ public class FlightEndpoint {
         return flightService.getFlightById(request.getId());
     }
     
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetFlightByFromCityRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetFlightsByFromCityRequest")
     @ResponsePayload
-    public GetFlightByFromCityResponse getFlightByFromCity(@RequestPayload GetFlightByFromCityRequest request) {
-        return flightService.getFlightByFromCity(request.getFromCity());
+    public GetFlightsByFromCityResponse getFlightsByFromCity(@RequestPayload GetFlightsByFromCityRequest request) {
+        return flightService.getFlightsByFromCity(request.getFromCity());
     }
     
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetFlightByToCityRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetFlightsByToCityRequest")
     @ResponsePayload
-    public GetFlightByToCityResponse getFlightByToCity(@RequestPayload GetFlightByToCityRequest request) {
-        return flightService.getFlightByToCity(request.getToCity());
+    public GetFlightsByToCityResponse getFlightByToCity(@RequestPayload GetFlightsByToCityRequest request) {
+        return flightService.getFlightsByToCity(request.getToCity());
     }
     
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetFlightByDateRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetFlightsByDateRequest")
     @ResponsePayload
-    public GetFlightByDateResponse getFlightByDate(@RequestPayload GetFlightByDateRequest request) {
-        return flightService.getFlightByDate(request.getDate());
+    public GetFlightsByDateResponse getFlightByDate(@RequestPayload GetFlightsByDateRequest request) {
+        return flightService.getFlightsByDate(request.getDate());
     }
     
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetFlightByTimeRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetFlightsByTimeRequest")
     @ResponsePayload
-    public GetFlightByTimeResponse getFlightByTime(@RequestPayload GetFlightByTimeRequest request) {
-        return flightService.getFlightByTime(request.getTime());
+    public GetFlightsByTimeResponse getFlightByTime(@RequestPayload GetFlightsByTimeRequest request) {
+        return flightService.getFlightsByTime(request.getTime());
     }
     
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "UpdateFlightRequest")
