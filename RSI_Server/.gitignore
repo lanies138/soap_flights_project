@@ -37,3 +37,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Python ###
+venv/
+
+RSI_Server_java/.idea/*

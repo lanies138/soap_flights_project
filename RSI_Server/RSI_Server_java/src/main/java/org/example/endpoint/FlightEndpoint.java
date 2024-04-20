@@ -14,7 +14,6 @@ import org.example.reservations.GetFlightsByTimeRequest;
 import org.example.reservations.GetFlightsByTimeResponse;
 import org.example.reservations.GetFlightsByToCityRequest;
 import org.example.reservations.GetFlightsByToCityResponse;
-import org.example.reservations.GetFlightsRequest;
 import org.example.reservations.GetFlightsResponse;
 import org.example.reservations.UpdateFlightRequest;
 import org.example.reservations.UpdateFlightResponse;
@@ -49,7 +48,7 @@ public class FlightEndpoint {
     
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetFlightsRequest")
     @ResponsePayload
-    public GetFlightsResponse getFlights(@RequestPayload GetFlightsRequest request) {
+    public GetFlightsResponse getFlights() {
         return flightService.getFlights();
     }
     

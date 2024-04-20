@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
-  <artifactId>RSI_Server</artifactId>
+  <artifactId>RSI_Server_java</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <parent>
