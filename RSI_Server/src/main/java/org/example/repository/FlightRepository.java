@@ -1,5 +1,6 @@
 package org.example.repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,10 @@ public class FlightRepository {
     public Flight getFlightById(Integer id) {
         Assert.notNull(id, "The id must not be null");
         return flights.get(id);
+    }
+    
+    public List<Flight> getFlights() {
+        return new ArrayList<>(flights.values());
     }
     
     public List<Flight> getFlightsByFromCity(String fromCity) {

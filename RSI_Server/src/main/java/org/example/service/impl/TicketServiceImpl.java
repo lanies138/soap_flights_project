@@ -6,6 +6,7 @@ import org.example.reservations.DeleteTicketResponse;
 import org.example.reservations.GetTicketByIdResponse;
 import org.example.reservations.GetTicketsByPassengerNameResponse;
 import org.example.reservations.GetTicketsByStatusResponse;
+import org.example.reservations.GetTicketsResponse;
 import org.example.reservations.Ticket;
 import org.example.reservations.UpdateTicketResponse;
 import org.example.service.TicketService;
@@ -20,7 +21,6 @@ public class TicketServiceImpl implements TicketService {
         this.ticketRepository = ticketRepository;
     }
     
-    
     @Override
     public AddTicketResponse addTicket(Ticket ticket) {
         AddTicketResponse response = new AddTicketResponse();
@@ -32,6 +32,13 @@ public class TicketServiceImpl implements TicketService {
     public GetTicketByIdResponse getTicketById(Integer id) {
         GetTicketByIdResponse response = new GetTicketByIdResponse();
         response.setTicket(ticketRepository.getTicketById(id));
+        return response;
+    }
+    
+    @Override
+    public GetTicketsResponse getTickets() {
+        GetTicketsResponse response = new GetTicketsResponse();
+        response.getTickets().addAll(ticketRepository.getTickets());
         return response;
     }
     

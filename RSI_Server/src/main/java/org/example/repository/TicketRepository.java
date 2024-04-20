@@ -1,5 +1,6 @@
 package org.example.repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,10 @@ public class TicketRepository {
     public Ticket getTicketById(Integer id) {
         Assert.notNull(id, "The id must not be null");
         return tickets.get(id);
+    }
+    
+    public List<Ticket> getTickets() {
+        return new ArrayList<>(tickets.values());
     }
     
     public List<Ticket> getTicketsByPassengerName(String passengerName) {

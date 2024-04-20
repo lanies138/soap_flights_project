@@ -10,6 +10,8 @@ import org.example.reservations.GetTicketsByPassengerNameRequest;
 import org.example.reservations.GetTicketsByPassengerNameResponse;
 import org.example.reservations.GetTicketsByStatusRequest;
 import org.example.reservations.GetTicketsByStatusResponse;
+import org.example.reservations.GetTicketsRequest;
+import org.example.reservations.GetTicketsResponse;
 import org.example.reservations.UpdateTicketRequest;
 import org.example.reservations.UpdateTicketResponse;
 import org.example.service.TicketService;
@@ -39,6 +41,12 @@ public class TicketEndpoint {
     @ResponsePayload
     public GetTicketByIdResponse getTicketById(@RequestPayload GetTicketByIdRequest request) {
         return ticketService.getTicketById(request.getId());
+    }
+    
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetTicketsRequest")
+    @ResponsePayload
+    public GetTicketsResponse getTickets() {
+        return ticketService.getTickets();
     }
     
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetTicketsByPassengerNameRequest")
