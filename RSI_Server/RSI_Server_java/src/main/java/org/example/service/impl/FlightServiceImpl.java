@@ -5,6 +5,7 @@ import org.example.reservations.AddFlightResponse;
 import org.example.reservations.DeleteFlightResponse;
 import org.example.reservations.Flight;
 import org.example.reservations.GetFlightsByDateResponse;
+import org.example.reservations.GetFlightsByFromCityAndToCityAndDateResponse;
 import org.example.reservations.GetFlightsByFromCityResponse;
 import org.example.reservations.GetFlightByIdResponse;
 import org.example.reservations.GetFlightsByTimeResponse;
@@ -69,6 +70,13 @@ public class FlightServiceImpl implements FlightService {
     public GetFlightsByTimeResponse getFlightsByTime(String time) {
         GetFlightsByTimeResponse response = new GetFlightsByTimeResponse();
         response.getFlights().addAll(flightRepository.getFlightsByTime(time));
+        return response;
+    }
+    
+    @Override
+    public GetFlightsByFromCityAndToCityAndDateResponse getFlightsByFromCityAndToCityAndDate(String fromCity, String toCity, String date) {
+        GetFlightsByFromCityAndToCityAndDateResponse response = new GetFlightsByFromCityAndToCityAndDateResponse();
+        response.getFlights().addAll(flightRepository.getFlightsByFromCityAndToCityAndDate(fromCity, toCity, date));
         return response;
     }
     

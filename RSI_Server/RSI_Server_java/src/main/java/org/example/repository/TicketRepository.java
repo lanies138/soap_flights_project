@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
+import org.example.reservations.Flight;
 import org.example.reservations.Ticket;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -26,16 +27,19 @@ public class TicketRepository {
     public void initData() {
         Ticket ticket1 = new Ticket();
         ticket1.setFlight(flightRepository.getFlightById(1));
-        ticket1.setPassengerName("Andrew Tate");
-        ticket1.setPrice(54);
-        ticket1.setStatus("Waiting for check-in");
+        ticket1.setPrice(59);
+        ticket1.setStatus("NOT BOOKED");
         tickets.put(nextId++, ticket1);
         
         Ticket ticket2 = new Ticket();
-        ticket2.setFlight(flightRepository.getFlightById(2));
-        ticket2.setPassengerName("Elon Musk");
-        ticket2.setPrice(64);
-        ticket2.setStatus("Booked");
+        ticket2.setFlight(flightRepository.getFlightById(1));
+        ticket2.setPrice(49);
+        ticket1.setStatus("NOT BOOKED");
+        tickets.put(nextId++, ticket2);
+        
+        Ticket ticket3 = new Ticket();
+        ticket3.setFlight(flightRepository.getFlightById(1));
+        ticket1.setStatus("NOT BOOKED");
         tickets.put(nextId++, ticket2);
     }
     
@@ -51,6 +55,17 @@ public class TicketRepository {
     
     public List<Ticket> getTickets() {
         return new ArrayList<>(tickets.values());
+    }
+    
+    public List<Ticket> getTicketsByFlight(Flight flight) {
+        Assert.notNull(flight, "The flight must not be null");
+        return tickets.values()
+                .stream()
+                .filter(ticket -> flight.getFromCity().equals(ticket.getFlight().getFromCity())
+                       && flight.getToCity().equals(ticket.getFlight().getToCity())
+                       && flight.getDate().equals(ticket.getFlight().getDate())
+                       && flight.getTime().equals(ticket.getFlight().getTime()))
+                .collect(Collectors.toList());
     }
     
     public List<Ticket> getTicketsByPassengerName(String passengerName) {

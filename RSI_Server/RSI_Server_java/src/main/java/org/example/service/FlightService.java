@@ -4,6 +4,7 @@ import org.example.reservations.AddFlightResponse;
 import org.example.reservations.DeleteFlightResponse;
 import org.example.reservations.Flight;
 import org.example.reservations.GetFlightsByDateResponse;
+import org.example.reservations.GetFlightsByFromCityAndToCityAndDateResponse;
 import org.example.reservations.GetFlightsByFromCityResponse;
 import org.example.reservations.GetFlightByIdResponse;
 import org.example.reservations.GetFlightsByTimeResponse;
@@ -19,6 +20,7 @@ public interface FlightService {
     GetFlightsByFromCityResponse getFlightsByFromCity(String fromCity);
     GetFlightsByToCityResponse getFlightsByToCity(String toCity);
     GetFlightsByDateResponse getFlightsByDate(String date);
+    GetFlightsByFromCityAndToCityAndDateResponse getFlightsByFromCityAndToCityAndDate(String fromCity, String toCity, String date);
     GetFlightsByTimeResponse getFlightsByTime(String time);
     UpdateFlightResponse updateFlight(Integer id, Flight flight);
     DeleteFlightResponse deleteFlight(Integer id);
