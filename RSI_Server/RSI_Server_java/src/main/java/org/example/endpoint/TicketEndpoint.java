@@ -4,10 +4,10 @@ import org.example.reservations.AddTicketRequest;
 import org.example.reservations.AddTicketResponse;
 import org.example.reservations.DeleteTicketRequest;
 import org.example.reservations.DeleteTicketResponse;
+import org.example.reservations.GetTicketByFlightRequest;
+import org.example.reservations.GetTicketByFlightResponse;
 import org.example.reservations.GetTicketByIdRequest;
 import org.example.reservations.GetTicketByIdResponse;
-import org.example.reservations.GetTicketsByFlightRequest;
-import org.example.reservations.GetTicketsByFlightResponse;
 import org.example.reservations.GetTicketsByPassengerNameRequest;
 import org.example.reservations.GetTicketsByPassengerNameResponse;
 import org.example.reservations.GetTicketsByStatusRequest;
@@ -50,10 +50,10 @@ public class TicketEndpoint {
         return ticketService.getTickets();
     }
     
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetTicketsByFlightRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetTicketByFlightRequest")
     @ResponsePayload
-    public GetTicketsByFlightResponse getTicketsByStatus(@RequestPayload GetTicketsByFlightRequest request) {
-        return ticketService.getTicketsByFlight(request.getFlight());
+    public GetTicketByFlightResponse getTicketByFlight(@RequestPayload GetTicketByFlightRequest request) {
+        return ticketService.getTicketByFlight(request.getFlight());
     }
     
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetTicketsByPassengerNameRequest")

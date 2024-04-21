@@ -189,9 +189,9 @@
   <xs:complexType name="ticket">
     <xs:sequence>
       <xs:element name="flight" type="tns:flight"/>
-      <xs:element name="passengerName" type="xs:string"/>
-      <xs:element name="price" type="xs:int"/>
-      <xs:element name="status" type="xs:string"/>
+      <xs:element name="passengerName" type="xs:string" minOccurs="0"/>
+      <xs:element name="price" type="xs:int" minOccurs="0"/>
+      <xs:element name="status" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -245,8 +245,8 @@
     </xs:complexType>
   </xs:element>
 
-  <!--  GetTicketsByFlight-->
-  <xs:element name="GetTicketsByFlightRequest">
+  <!--  GetTicketByFlight-->
+  <xs:element name="GetTicketByFlightRequest">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="flight" type="tns:flight"/>
@@ -254,10 +254,10 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="GetTicketsByFlightResponse">
+  <xs:element name="GetTicketByFlightResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="tickets" minOccurs="0" maxOccurs="unbounded" type="tns:ticket"/>
+        <xs:element name="ticket" type="tns:ticket"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -7,6 +7,9 @@ from zeep import Client
 
 # Custom imports
 from style import createCustomStyle
+from helpers import change_frame
+from flight import *
+from ticket import *
 
 # SOAP client setup
 wsdl_url = 'http://localhost:8080/ws/reservations.wsdl'
@@ -18,7 +21,29 @@ def get_flights():
     response = client.service.GetFlightsByFromCityAndToCityAndDate(fromCity=from_city_entry.get(), toCity=to_city_entry.get(), date=date_entry.get())
     # Update the table with the new data
     update_table(response)
-    toggle_view()  # 2nd view
+    change_frame(content_frame, result_frame)  # 2nd view
+  except Exception as e:
+    # If an error occurs, show an error message
+    messagebox.showerror("Error", str(e))
+
+def get_ticket_by_flight(flight):
+  response = client.service.GetTicketByFlight(flight=flight.to_dict());
+
+  flight_data = response['flight']
+  flight_obj = Flight(flight_data['fromCity'], flight_data['toCity'], flight_data['date'], flight_data['time'])
+
+  ticket = Ticket(flight=flight_obj,
+                  passengerName=response['passengerName'],
+                  price=response['price'],
+                  status=response['status'])
+  return ticket
+
+
+
+def update_ticket(ticket):
+  try:
+    response = client.service.UpdateTicket(1, ticket.to_dict())
+
   except Exception as e:
     # If an error occurs, show an error message
     messagebox.showerror("Error", str(e))
@@ -31,20 +56,22 @@ def update_table(flights):
   for flight in flights:
     result_table.insert("", "end", values=(flight["fromCity"], flight["toCity"], flight["date"], flight["time"]))
 
-def toggle_view():
-  # Hide input frame and show result frame
-  content_frame.grid_remove()
-  result_frame.grid()
-
 def on_row_select(event):
-  # Get selected item
   selected_item = result_table.focus()
-  # Retrieve the record values
   flight_details = result_table.item(selected_item, "values")
-  # Construct details string
-  details = f"Flight from {flight_details[0]} to {flight_details[1]} on {flight_details[2]} at {flight_details[3]}"
-  # Show message box with details
-  messagebox.showinfo("Flight Details", details)
+
+  flight = Flight(flight_details[0], flight_details[1], flight_details[2], flight_details[3])
+  ticket = get_ticket_by_flight(flight)
+
+  details = f"Flight from {ticket.flight.fromCity} to {ticket.flight.toCity} on {ticket.flight.date} at {ticket.flight.time} for {ticket.price} euro."
+
+  buy_ticket_label = ttk.Label(buy_ticket_frame, text=details)
+  buy_ticket_label.grid(row=2, column=0, sticky=tk.W)
+
+  get_flights_button = ttk.Button(buy_ticket_frame, text="Buy Ticket", command=lambda: update_ticket(ticket))
+  get_flights_button.grid(row=3, column=0, columnspan=2, sticky=(tk.EW))
+
+  change_frame(result_frame, buy_ticket_frame)
 
 # Set up the main application window
 root = tk.Tk()
@@ -97,6 +124,12 @@ result_table.heading("Date", text="Date")
 result_table.heading("Time", text="Time")
 result_table.pack(fill=tk.BOTH, expand=True)
 result_table.bind("<<TreeviewSelect>>", on_row_select) # 3rd view
+
+#
+buy_ticket_frame = ttk.Frame(main_frame, padding="10 10 10 10") # 1nd view
+buy_ticket_frame.grid(column=0, row=0, sticky=(tk.N, tk.E, tk.S, tk.W))
+buy_ticket_frame.columnconfigure(1, weight=1)
+buy_ticket_frame.grid_remove()  # Initially hidden
 
 # Pre-filled values
 from_city_entry.insert(0, 'Warsaw')

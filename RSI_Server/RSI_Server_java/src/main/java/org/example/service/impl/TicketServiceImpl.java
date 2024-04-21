@@ -4,8 +4,8 @@ import org.example.repository.TicketRepository;
 import org.example.reservations.AddTicketResponse;
 import org.example.reservations.DeleteTicketResponse;
 import org.example.reservations.Flight;
+import org.example.reservations.GetTicketByFlightResponse;
 import org.example.reservations.GetTicketByIdResponse;
-import org.example.reservations.GetTicketsByFlightResponse;
 import org.example.reservations.GetTicketsByPassengerNameResponse;
 import org.example.reservations.GetTicketsByStatusResponse;
 import org.example.reservations.GetTicketsResponse;
@@ -45,9 +45,9 @@ public class TicketServiceImpl implements TicketService {
     }
     
     @Override
-    public GetTicketsByFlightResponse getTicketsByFlight(Flight flight) {
-        GetTicketsByFlightResponse response = new GetTicketsByFlightResponse();
-        response.getTickets().addAll(ticketRepository.getTicketsByFlight(flight));
+    public GetTicketByFlightResponse getTicketByFlight(Flight flight) {
+        GetTicketByFlightResponse response = new GetTicketByFlightResponse();
+        response.setTicket(ticketRepository.getTicketByFlight(flight));
         return response;
     }
     

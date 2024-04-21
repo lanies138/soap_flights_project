@@ -4,7 +4,7 @@ import org.example.reservations.AddTicketResponse;
 import org.example.reservations.DeleteTicketResponse;
 import org.example.reservations.Flight;
 import org.example.reservations.GetTicketByIdResponse;
-import org.example.reservations.GetTicketsByFlightResponse;
+import org.example.reservations.GetTicketByFlightResponse;
 import org.example.reservations.GetTicketsByPassengerNameResponse;
 import org.example.reservations.GetTicketsByStatusResponse;
 import org.example.reservations.GetTicketsResponse;
@@ -16,7 +16,7 @@ public interface TicketService {
     AddTicketResponse addTicket(Ticket ticket);
     GetTicketByIdResponse getTicketById(Integer id);
     GetTicketsResponse getTickets();
-    GetTicketsByFlightResponse getTicketsByFlight(Flight flight);
+    GetTicketByFlightResponse getTicketByFlight(Flight flight);
     GetTicketsByPassengerNameResponse getTicketsByPassengerName(String passengerName);
     GetTicketsByStatusResponse getTicketsByStatus(String status);
     UpdateTicketResponse updateTicket(Integer id, Ticket ticket);

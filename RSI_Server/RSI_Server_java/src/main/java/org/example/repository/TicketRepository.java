@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,12 +35,12 @@ public class TicketRepository {
         Ticket ticket2 = new Ticket();
         ticket2.setFlight(flightRepository.getFlightById(1));
         ticket2.setPrice(49);
-        ticket1.setStatus("NOT BOOKED");
+        ticket2.setStatus("NOT BOOKED");
         tickets.put(nextId++, ticket2);
         
         Ticket ticket3 = new Ticket();
         ticket3.setFlight(flightRepository.getFlightById(1));
-        ticket1.setStatus("NOT BOOKED");
+        ticket3.setStatus("NOT BOOKED");
         tickets.put(nextId++, ticket2);
     }
     
@@ -57,7 +58,8 @@ public class TicketRepository {
         return new ArrayList<>(tickets.values());
     }
     
-    public List<Ticket> getTicketsByFlight(Flight flight) {
+    // Available cheapest one
+    public Ticket getTicketByFlight(Flight flight) {
         Assert.notNull(flight, "The flight must not be null");
         return tickets.values()
                 .stream()
@@ -65,7 +67,8 @@ public class TicketRepository {
                        && flight.getToCity().equals(ticket.getFlight().getToCity())
                        && flight.getDate().equals(ticket.getFlight().getDate())
                        && flight.getTime().equals(ticket.getFlight().getTime()))
-                .collect(Collectors.toList());
+                .min(Comparator.comparingInt(Ticket::getPrice))
+                .orElse(null);
     }
     
     public List<Ticket> getTicketsByPassengerName(String passengerName) {
