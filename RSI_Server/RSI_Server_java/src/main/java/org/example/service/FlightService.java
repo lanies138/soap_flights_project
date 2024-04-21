@@ -22,6 +22,6 @@ public interface FlightService {
     GetFlightsByDateResponse getFlightsByDate(String date);
     GetFlightsByFromCityAndToCityAndDateResponse getFlightsByFromCityAndToCityAndDate(String fromCity, String toCity, String date);
     GetFlightsByTimeResponse getFlightsByTime(String time);
-    UpdateFlightResponse updateFlight(Integer id, Flight flight);
+    UpdateFlightResponse updateFlight(Flight flight);
     DeleteFlightResponse deleteFlight(Integer id);
 }

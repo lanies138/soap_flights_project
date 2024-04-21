@@ -71,7 +71,7 @@ public class TicketEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "UpdateTicketRequest")
     @ResponsePayload
     public UpdateTicketResponse updateTicket(@RequestPayload UpdateTicketRequest request) {
-        return ticketService.updateTicket(request.getId(), request.getTicket());
+        return ticketService.updateTicket(request.getTicket());
     }
     
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "DeleteTicketRequest")

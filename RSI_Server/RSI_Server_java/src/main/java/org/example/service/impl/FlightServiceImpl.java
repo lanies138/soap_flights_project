@@ -81,9 +81,9 @@ public class FlightServiceImpl implements FlightService {
     }
     
     @Override
-    public UpdateFlightResponse updateFlight(Integer id, Flight flight) {
+    public UpdateFlightResponse updateFlight(Flight flight) {
         UpdateFlightResponse response = new UpdateFlightResponse();
-        response.setFlight(flightRepository.updateFlight(id, flight));
+        response.setFlight(flightRepository.updateFlight(flight));
         return response;
     }
     

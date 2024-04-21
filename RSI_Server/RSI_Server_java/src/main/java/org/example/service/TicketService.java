@@ -19,6 +19,6 @@ public interface TicketService {
     GetTicketByFlightResponse getTicketByFlight(Flight flight);
     GetTicketsByPassengerNameResponse getTicketsByPassengerName(String passengerName);
     GetTicketsByStatusResponse getTicketsByStatus(String status);
-    UpdateTicketResponse updateTicket(Integer id, Ticket ticket);
+    UpdateTicketResponse updateTicket(Ticket ticket);
     DeleteTicketResponse deleteTicket(Integer id);
 }

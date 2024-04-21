@@ -12,7 +12,7 @@ def on_row_select(event):
   selected_item = flights_table.focus()
   flight_details = flights_table.item(selected_item, "values")
 
-  flight = Flight(flight_details[0], flight_details[1], flight_details[2], flight_details[3])
+  flight = Flight(flight_details[0], flight_details[1], flight_details[2], flight_details[3], flight_details[4])
   ticket = get_ticket_by_flight(flight)
 
   sale_details = f"Flight from {ticket.flight.fromCity} to {ticket.flight.toCity} on {ticket.flight.date} at {ticket.flight.time} starts from {ticket.price} euro."
@@ -20,7 +20,7 @@ def on_row_select(event):
   sale_label = ttk.Label(sale_frame, text=sale_details)
   sale_label.grid(row=2, column=0, columnspan=2, sticky=tk.W + tk.E)
 
-  buy_ticket_button = ttk.Button(sale_frame, text="Buy", command=lambda: update_ticket(ticket))
+  buy_ticket_button = ttk.Button(sale_frame, text="Buy", command=lambda: update_ticket(ticket, sale_frame, successful_purchase_frame, search_flights_frame))
   buy_ticket_button.grid(row=3, column=0, sticky=(tk.EW))
 
   cancel_ticket_button = ttk.Button(sale_frame, text="Cancel", command=lambda: change_frame(sale_frame, flights_frame), style='redbutton.TButton')
@@ -33,7 +33,7 @@ def on_row_select(event):
 # Set up the main application window
 root = tk.Tk()
 root.title("Airline Ticket Reservation")
-root.geometry("800x600")
+root.geometry("1000x600")
 # ------------------------------------------------------------------------------
 createCustomStyle(root)
 # ------------------------------------------------------------------------------
@@ -77,7 +77,8 @@ flights_frame.columnconfigure(0, weight=1)
 flights_frame.grid_remove()  # Initially hidden
 
 # Table to display the flights
-flights_table = ttk.Treeview(flights_frame, columns=("From City", "To City", "Date", "Time"), show="headings")
+flights_table = ttk.Treeview(flights_frame, columns=("Id", "From City", "To City", "Date", "Time"), show="headings")
+flights_table.heading("Id", text="Id")
 flights_table.heading("From City", text="From City")
 flights_table.heading("To City", text="To City")
 flights_table.heading("Date", text="Date")
@@ -92,6 +93,13 @@ sale_frame.grid(column=0, row=0, sticky=(tk.N, tk.E, tk.S, tk.W))
 sale_frame.grid_columnconfigure(0, weight=1)
 sale_frame.grid_columnconfigure(1, weight=1)
 sale_frame.grid_remove()  # Initially hidden
+
+# ------------------------------------------------------------------------------
+# Frame for successful purchase
+successful_purchase_frame = ttk.Frame(main_frame, padding="10 10 10 10")
+successful_purchase_frame.grid(column=0, row=0, sticky=(tk.N, tk.E, tk.S, tk.W))
+successful_purchase_frame.columnconfigure(0, weight=1)
+successful_purchase_frame.grid_remove()  # Initially hidden
 
 # ------------------------------------------------------------------------------
 # Pre-filled values

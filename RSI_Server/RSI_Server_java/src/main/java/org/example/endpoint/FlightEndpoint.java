@@ -87,7 +87,7 @@ public class FlightEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "UpdateFlightRequest")
     @ResponsePayload
     public UpdateFlightResponse updateFlight(@RequestPayload UpdateFlightRequest request) {
-        return flightService.updateFlight(request.getId(), request.getFlight());
+        return flightService.updateFlight(request.getFlight());
     }
     
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "DeleteFlightRequest")

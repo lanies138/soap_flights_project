@@ -1,9 +1,12 @@
+import tkinter as tk
+from tkinter import ttk
+
 # WSDL
 from zeep import Client
 
+# Custom imports
 from src.model.flight import Flight
 from src.model.ticket import Ticket
-# Custom imports
 from src.utils.helpers import change_frame
 
 # SOAP client setup
@@ -21,8 +24,7 @@ def get_flights(from_city, to_city, date_entry, flights_table, search_flights_fr
 
   # Insert new data into the flights table
   for flight in flights:
-    flights_table.insert("", "end", values=(
-    flight["fromCity"], flight["toCity"], flight["date"], flight["time"]))
+    flights_table.insert("", "end", values=(flight["id"], flight["fromCity"], flight["toCity"], flight["date"], flight["time"]))
 
   change_frame(search_flights_frame, flights_frame)
 
@@ -31,16 +33,29 @@ def get_ticket_by_flight(flight):
   response = client.service.GetTicketByFlight(flight=flight.to_dict());
 
   flight_data = response['flight']
-  flight_obj = Flight(flight_data['fromCity'], flight_data['toCity'],
-                      flight_data['date'], flight_data['time'])
+  flight_obj = Flight(flight_data['id'], flight_data['fromCity'], flight_data['toCity'], flight_data['date'], flight_data['time'])
 
-  ticket = Ticket(flight=flight_obj,
+  ticket = Ticket(id=response['id'],
+                  flight=flight_obj,
                   passengerName=response['passengerName'],
                   price=response['price'],
                   status=response['status'])
   return ticket
 
 
-def update_ticket(ticket):
+def update_ticket(ticket, sale_frame, successful_purchase_frame, search_flights_frame):
   ticket.passengerName = "Jan Kowalski" # TODO: temporary mocked
-  client.service.UpdateTicket(1, ticket.to_dict())
+
+  client.service.UpdateTicket(ticket.id, ticket.to_dict())
+
+  successful_purchase_details = (f"You successfully booked a ticket for flight from {ticket.flight.fromCity} to {ticket.flight.toCity} on {ticket.flight.date} at {ticket.flight.time} for {ticket.price} euro.")
+
+  successful_purchase_label = ttk.Label(successful_purchase_frame, text=successful_purchase_details)
+  successful_purchase_label.grid(row=2, column=0, columnspan=2, sticky=tk.W + tk.E)
+
+  download_purchase_button = ttk.Button(successful_purchase_frame, text="Download purchase in PDF") # TODO: , command=lambda: download_purchase_pdf(hmm))
+  download_purchase_button.grid(row=3, column=0, sticky=(tk.EW))
+
+  back_to_search_flights_button = ttk.Button(successful_purchase_frame, text="Back To Search Flights", command=lambda: change_frame(successful_purchase_frame, search_flights_frame), style='redbutton.TButton')
+  back_to_search_flights_button.grid(row=3, column=1, sticky=(tk.EW))
+  change_frame(sale_frame, successful_purchase_frame)

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TicketServiceImpl implements TicketService {
     
-    private TicketRepository ticketRepository;
+    private final TicketRepository ticketRepository;
     
     public TicketServiceImpl(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
@@ -66,9 +66,9 @@ public class TicketServiceImpl implements TicketService {
     }
     
     @Override
-    public UpdateTicketResponse updateTicket(Integer id, Ticket ticket) {
+    public UpdateTicketResponse updateTicket(Ticket ticket) {
         UpdateTicketResponse response = new UpdateTicketResponse();
-        response.setTicket(ticketRepository.updateTicket(id, ticket));
+        response.setTicket(ticketRepository.updateTicket(ticket));
         return response;
     }
     

@@ -17,67 +17,71 @@ import org.springframework.util.Assert;
 public class FlightRepository {
     
     private static final SimpleDateFormat SDF = new SimpleDateFormat("dd.MM.yyyy");
-    private final Map<Integer, Flight> flights = new HashMap<>();
+    private final List<Flight> flights = new ArrayList<>();
     private int nextId = 1;
     
     @PostConstruct
     public void initData() {
         Flight flight1 = new Flight();
+        flight1.setId(nextId++);
         flight1.setFromCity("Warsaw");
         flight1.setToCity("Berlin");
         flight1.setTime("12:00");
         flight1.setDate("23.05.2024");
-        flights.put(nextId++, flight1);
+        flights.add(flight1);
         
         Flight flight2 = new Flight();
+        flight2.setId(nextId++);
         flight2.setFromCity("Warsaw");
         flight2.setToCity("Berlin");
         flight2.setTime("8:00");
         flight2.setDate("24.05.2024");
-        flights.put(nextId++, flight2);
+        flights.add(flight2);
         
         Flight flight3 = new Flight();
+        flight3.setId(nextId++);
         flight3.setFromCity("Warsaw");
         flight3.setToCity("Berlin");
         flight3.setTime("16:30");
         flight3.setDate("25.05.2024");
-        flights.put(nextId++, flight3);
+        flights.add(flight3);
     }
     
     public Flight addFlight(Flight flight) {
-        flights.put(nextId++, flight);
+        flight.setId(nextId++);
+        flights.add(flight);
         return flight;
     }
     
     public Flight getFlightById(Integer id) {
         Assert.notNull(id, "The id must not be null");
-        return flights.get(id);
+        return flights.stream()
+                .filter(flight -> id.equals(flight.getId()))
+                .findFirst()
+                .orElse(null);
     }
     
     public List<Flight> getFlights() {
-        return new ArrayList<>(flights.values());
+        return flights;
     }
     
     public List<Flight> getFlightsByFromCity(String fromCity) {
         Assert.notNull(fromCity, "The fromCity must not be null");
-        return flights.values()
-                .stream()
+        return flights.stream()
                 .filter(flight -> fromCity.equals(flight.getFromCity()))
                 .collect(Collectors.toList());
     }
     
     public List<Flight> getFlightsByToCity(String toCity) {
         Assert.notNull(toCity, "The toCity must not be null");
-        return flights.values()
-                .stream()
+        return flights.stream()
                 .filter(flight -> toCity.equals(flight.getToCity()))
                 .collect(Collectors.toList());
     }
     
     public List<Flight> getFlightsByDate(String date) {
         Assert.notNull(date, "The date must not be null");
-        return flights.values()
-                .stream()
+        return flights.stream()
                 .filter(flight -> date.equals(flight.getDate()))
                 .collect(Collectors.toList());
     }
@@ -86,8 +90,7 @@ public class FlightRepository {
         Assert.notNull(fromCity, "The fromCity must not be null");
         Assert.notNull(toCity, "The toCity must not be null");
         Assert.notNull(date, "The date must not be null");
-        return flights.values()
-                .stream()
+        return flights.stream()
                 .filter(flight -> fromCity.equals(flight.getFromCity()))
                 .filter(flight -> toCity.equals(flight.getToCity()))
                 .filter(flight -> parseDates(date, flight.getDate()))
@@ -105,23 +108,26 @@ public class FlightRepository {
     
     public List<Flight> getFlightsByTime(String time) {
         Assert.notNull(time, "The time must not be null");
-        return flights.values()
-                .stream()
+        return flights.stream()
                 .filter(flight -> time.equals(flight.getTime()))
                 .collect(Collectors.toList());
     }
     
-    public Flight updateFlight(Integer id, Flight flight) {
-        if (flights.containsKey(id)) {
-            flights.put(id, flight);
-            return flight;
+    public Flight updateFlight(Flight flight) {
+        for (int i = 0; i < flights.size(); i++) {
+            if (flights.get(i).getId() == flight.getId()) {
+                flights.set(i, flight);
+                return flight;
+            }
         }
         return null;
     }
     
     public Flight deleteFlight(Integer id) {
-        if (flights.containsKey(id)) {
-            return flights.remove(id);
+        for (int i = 0; i < flights.size(); i++) {
+            if (flights.get(i).getId() == id) {
+                return flights.remove(i);
+            }
         }
         return null;
     }

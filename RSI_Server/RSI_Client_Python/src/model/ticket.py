@@ -1,5 +1,6 @@
 class Ticket:
-  def __init__(self, flight, passengerName, price, status):
+  def __init__(self, id, flight, passengerName, price, status):
+    self.id = id
     self.flight = flight
     self.passengerName = passengerName
     self.price = price
@@ -7,6 +8,7 @@ class Ticket:
 
   def to_dict(self):
     return {
+      'id': self.id,
       'flight': self.flight.to_dict(),
       'passengerName': self.passengerName,
       'price': self.price,
