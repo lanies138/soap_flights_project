@@ -26,22 +26,62 @@ public class TicketRepository {
     
     @PostConstruct
     public void initData() {
-        Ticket ticket1 = new Ticket();
-        ticket1.setFlight(flightRepository.getFlightById(1));
-        ticket1.setPrice(59);
-        ticket1.setStatus("NOT BOOKED");
-        tickets.put(nextId++, ticket1);
+        // Tickets for flight1
+        Ticket firstTicketForFlight1 = new Ticket();
+        firstTicketForFlight1.setFlight(flightRepository.getFlightById(1));
+        firstTicketForFlight1.setPrice(59);
+        firstTicketForFlight1.setStatus("NOT BOOKED");
+        tickets.put(nextId++, firstTicketForFlight1);
         
-        Ticket ticket2 = new Ticket();
-        ticket2.setFlight(flightRepository.getFlightById(1));
-        ticket2.setPrice(49);
-        ticket2.setStatus("NOT BOOKED");
-        tickets.put(nextId++, ticket2);
+        Ticket secondTicketForFlight1 = new Ticket();
+        secondTicketForFlight1.setFlight(flightRepository.getFlightById(1));
+        secondTicketForFlight1.setPrice(49);
+        secondTicketForFlight1.setStatus("NOT BOOKED");
+        tickets.put(nextId++, secondTicketForFlight1);
         
-        Ticket ticket3 = new Ticket();
-        ticket3.setFlight(flightRepository.getFlightById(1));
-        ticket3.setStatus("NOT BOOKED");
-        tickets.put(nextId++, ticket2);
+        Ticket thirdTicketForFlight1 = new Ticket();
+        thirdTicketForFlight1.setFlight(flightRepository.getFlightById(1));
+        secondTicketForFlight1.setPrice(69);
+        thirdTicketForFlight1.setStatus("NOT BOOKED");
+        tickets.put(nextId++, secondTicketForFlight1);
+        
+        // Tickets for flight2
+        Ticket firstTicketForFlight2 = new Ticket();
+        firstTicketForFlight2.setFlight(flightRepository.getFlightById(2));
+        firstTicketForFlight2.setPrice(169);
+        firstTicketForFlight2.setStatus("NOT BOOKED");
+        tickets.put(nextId++, firstTicketForFlight2);
+        
+        Ticket secondTicketForFlight2 = new Ticket();
+        secondTicketForFlight2.setFlight(flightRepository.getFlightById(2));
+        secondTicketForFlight2.setPrice(129);
+        secondTicketForFlight2.setStatus("NOT BOOKED");
+        tickets.put(nextId++, secondTicketForFlight2);
+        
+        Ticket thirdTicketForFlight2 = new Ticket();
+        thirdTicketForFlight2.setFlight(flightRepository.getFlightById(2));
+        secondTicketForFlight1.setPrice(139);
+        thirdTicketForFlight2.setStatus("NOT BOOKED");
+        tickets.put(nextId++, secondTicketForFlight2);
+        
+        // Tickets for flight3
+        Ticket firstTicketForFlight3 = new Ticket();
+        firstTicketForFlight3.setFlight(flightRepository.getFlightById(3));
+        firstTicketForFlight3.setPrice(219);
+        firstTicketForFlight3.setStatus("NOT BOOKED");
+        tickets.put(nextId++, firstTicketForFlight3);
+        
+        Ticket secondTicketForFlight3 = new Ticket();
+        secondTicketForFlight3.setFlight(flightRepository.getFlightById(3));
+        secondTicketForFlight3.setPrice(229);
+        secondTicketForFlight3.setStatus("NOT BOOKED");
+        tickets.put(nextId++, secondTicketForFlight3);
+        
+        Ticket thirdTicketForFlight3 = new Ticket();
+        thirdTicketForFlight3.setFlight(flightRepository.getFlightById(3));
+        secondTicketForFlight3.setPrice(239);
+        thirdTicketForFlight3.setStatus("NOT BOOKED");
+        tickets.put(nextId++, secondTicketForFlight3);
     }
     
     public Ticket addTicket(Ticket ticket) {
