@@ -1,9 +1,14 @@
 package org.example.service.impl;
 
+import java.io.File;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+
 import org.example.repository.TicketRepository;
 import org.example.reservations.AddTicketResponse;
 import org.example.reservations.DeleteTicketResponse;
 import org.example.reservations.Flight;
+import org.example.reservations.GenerateTicketPDFResponse;
 import org.example.reservations.GetTicketByFlightResponse;
 import org.example.reservations.GetTicketByIdResponse;
 import org.example.reservations.GetTicketsByPassengerNameResponse;
@@ -11,6 +16,7 @@ import org.example.reservations.GetTicketsByStatusResponse;
 import org.example.reservations.GetTicketsResponse;
 import org.example.reservations.Ticket;
 import org.example.reservations.UpdateTicketResponse;
+import org.example.service.PDFCreator;
 import org.example.service.TicketService;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +24,11 @@ import org.springframework.stereotype.Service;
 public class TicketServiceImpl implements TicketService {
     
     private final TicketRepository ticketRepository;
+    private final PDFCreator pdfCreator;
     
-    public TicketServiceImpl(TicketRepository ticketRepository) {
+    public TicketServiceImpl(TicketRepository ticketRepository, PDFCreator pdfCreator) {
         this.ticketRepository = ticketRepository;
+        this.pdfCreator = pdfCreator;
     }
     
     @Override
@@ -76,6 +84,17 @@ public class TicketServiceImpl implements TicketService {
     public DeleteTicketResponse deleteTicket(Integer id) {
         DeleteTicketResponse response = new DeleteTicketResponse();
         response.setTicket(ticketRepository.deleteTicket(id));
+        return response;
+    }
+    
+    @Override
+    public GenerateTicketPDFResponse generateTicketPDF(Integer id) {
+        File pdf = pdfCreator.create(ticketRepository.getTicketById(id));
+        
+        GenerateTicketPDFResponse response = new GenerateTicketPDFResponse();
+        FileDataSource fileDataSource = new FileDataSource(pdf);
+        DataHandler dataHandler = new DataHandler(fileDataSource);
+        response.setContent(dataHandler);
         return response;
     }
     

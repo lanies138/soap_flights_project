@@ -20,7 +20,7 @@ def on_row_select(event):
   sale_label = ttk.Label(sale_frame, text=sale_details)
   sale_label.grid(row=2, column=0, columnspan=2, sticky=tk.W + tk.E)
 
-  buy_ticket_button = ttk.Button(sale_frame, text="Buy", command=lambda: update_ticket(ticket, sale_frame, successful_purchase_frame, search_flights_frame))
+  buy_ticket_button = ttk.Button(sale_frame, text="Buy", command=lambda: update_ticket(ticket, sale_frame, successful_purchase_frame, search_flights_frame, pdf_frame))
   buy_ticket_button.grid(row=3, column=0, sticky=(tk.EW))
 
   cancel_ticket_button = ttk.Button(sale_frame, text="Cancel", command=lambda: change_frame(sale_frame, flights_frame), style='redbutton.TButton')
@@ -100,6 +100,13 @@ successful_purchase_frame = ttk.Frame(main_frame, padding="10 10 10 10")
 successful_purchase_frame.grid(column=0, row=0, sticky=(tk.N, tk.E, tk.S, tk.W))
 successful_purchase_frame.columnconfigure(0, weight=1)
 successful_purchase_frame.grid_remove()  # Initially hidden
+
+# ------------------------------------------------------------------------------
+# Frame for pdf
+pdf_frame = ttk.Frame(main_frame, padding="10 10 10 10")
+pdf_frame.grid(column=0, row=0, sticky=(tk.N, tk.E, tk.S, tk.W))
+pdf_frame.columnconfigure(0, weight=1)
+pdf_frame.grid_remove()  # Initially hidden
 
 # ------------------------------------------------------------------------------
 # Pre-filled values

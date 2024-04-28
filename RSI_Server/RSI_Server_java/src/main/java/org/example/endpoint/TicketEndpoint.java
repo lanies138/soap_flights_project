@@ -4,6 +4,8 @@ import org.example.reservations.AddTicketRequest;
 import org.example.reservations.AddTicketResponse;
 import org.example.reservations.DeleteTicketRequest;
 import org.example.reservations.DeleteTicketResponse;
+import org.example.reservations.GenerateTicketPDFRequest;
+import org.example.reservations.GenerateTicketPDFResponse;
 import org.example.reservations.GetTicketByFlightRequest;
 import org.example.reservations.GetTicketByFlightResponse;
 import org.example.reservations.GetTicketByIdRequest;
@@ -78,5 +80,11 @@ public class TicketEndpoint {
     @ResponsePayload
     public DeleteTicketResponse deleteTicket(@RequestPayload DeleteTicketRequest request) {
         return ticketService.deleteTicket(request.getId());
+    }
+    
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GenerateTicketPDFRequest")
+    @ResponsePayload
+    public GenerateTicketPDFResponse generateTicketPDF(@RequestPayload GenerateTicketPDFRequest request) {
+        return ticketService.generateTicketPDF(request.getId());
     }
 }

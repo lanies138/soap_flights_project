@@ -3,6 +3,7 @@ package org.example.service;
 import org.example.reservations.AddTicketResponse;
 import org.example.reservations.DeleteTicketResponse;
 import org.example.reservations.Flight;
+import org.example.reservations.GenerateTicketPDFResponse;
 import org.example.reservations.GetTicketByIdResponse;
 import org.example.reservations.GetTicketByFlightResponse;
 import org.example.reservations.GetTicketsByPassengerNameResponse;
@@ -21,4 +22,5 @@ public interface TicketService {
     GetTicketsByStatusResponse getTicketsByStatus(String status);
     UpdateTicketResponse updateTicket(Ticket ticket);
     DeleteTicketResponse deleteTicket(Integer id);
+    GenerateTicketPDFResponse generateTicketPDF(Integer id);
 }

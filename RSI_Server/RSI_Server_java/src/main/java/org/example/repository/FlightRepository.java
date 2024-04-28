@@ -1,22 +1,19 @@
 package org.example.repository;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
 import org.example.reservations.Flight;
+import org.example.utils.DateUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 @Component
 public class FlightRepository {
     
-    private static final SimpleDateFormat SDF = new SimpleDateFormat("dd.MM.yyyy");
     private final List<Flight> flights = new ArrayList<>();
     private int nextId = 1;
     
@@ -99,7 +96,7 @@ public class FlightRepository {
     
     private boolean parseDates(String date1, String date2) {
         try {
-            return SDF.parse(date1).before(SDF.parse(date2));
+            return DateUtils.SDF.parse(date1).before(DateUtils.SDF.parse(date2));
         } catch (ParseException ex) {
             // something went wrong
             return false;

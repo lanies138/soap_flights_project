@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+import fitz
 
 # WSDL
 from zeep import Client
@@ -43,7 +44,7 @@ def get_ticket_by_flight(flight):
   return ticket
 
 
-def update_ticket(ticket, sale_frame, successful_purchase_frame, search_flights_frame):
+def update_ticket(ticket, sale_frame, successful_purchase_frame, search_flights_frame, pdf_frame):
   ticket.passengerName = "Jan Kowalski" # TODO: temporary mocked
 
   client.service.UpdateTicket(ticket.id, ticket.to_dict())
@@ -53,9 +54,39 @@ def update_ticket(ticket, sale_frame, successful_purchase_frame, search_flights_
   successful_purchase_label = ttk.Label(successful_purchase_frame, text=successful_purchase_details)
   successful_purchase_label.grid(row=2, column=0, columnspan=2, sticky=tk.W + tk.E)
 
-  download_purchase_button = ttk.Button(successful_purchase_frame, text="Download purchase in PDF") # TODO: , command=lambda: download_purchase_pdf(hmm))
+  download_purchase_button = ttk.Button(successful_purchase_frame, text="Download purchase in PDF", command=lambda: download_purchase_pdf(ticket.id, successful_purchase_frame, pdf_frame))
   download_purchase_button.grid(row=3, column=0, sticky=(tk.EW))
 
   back_to_search_flights_button = ttk.Button(successful_purchase_frame, text="Back To Search Flights", command=lambda: change_frame(successful_purchase_frame, search_flights_frame), style='redbutton.TButton')
   back_to_search_flights_button.grid(row=3, column=1, sticky=(tk.EW))
   change_frame(sale_frame, successful_purchase_frame)
+
+
+def download_purchase_pdf(id, successful_purchase_frame, pdf_frame):
+  response = client.service.GenerateTicketPDF(id=id);
+
+  display_pdf(response, successful_purchase_frame, pdf_frame)
+
+def display_pdf(pdf_content, successful_purchase_frame, pdf_frame):
+  # Load PDF from binary data
+  pdf_document = fitz.open("pdf", pdf_content)
+
+  # Get the first page of the PDF
+  page = pdf_document[0]
+
+  zoom = 1
+  mat = fitz.Matrix(zoom, zoom)
+  pix = page.get_pixmap(matrix=mat)
+
+  # Convert to a format Tkinter can use
+  img = tk.PhotoImage(data=pix.tobytes("ppm"))
+
+  # Create a canvas and add the image
+  canvas = tk.Canvas(pdf_frame, width=pix.width, height=pix.height)
+  canvas.pack()
+  canvas.create_image(0, 0, image=img, anchor="nw")
+
+  # This is necessary to keep a reference to the image
+  canvas.image = img
+
+  change_frame(successful_purchase_frame, pdf_frame)
