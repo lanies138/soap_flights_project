@@ -20,34 +20,57 @@ def on_row_select(event):
   sale_label = ttk.Label(sale_frame, text=sale_details)
   sale_label.grid(row=2, column=0, columnspan=2, sticky=tk.W + tk.E)
 
-  buy_ticket_button = ttk.Button(sale_frame, text="Buy", command=lambda: update_ticket(ticket, sale_frame, successful_purchase_frame, search_flights_frame, pdf_frame))
+  buy_ticket_button = ttk.Button(sale_frame, text="Buy", command=lambda: update_ticket(ticket, successful_purchase_frame, search_flights_frame, pdf_frame))
   buy_ticket_button.grid(row=3, column=0, sticky=(tk.EW))
 
-  cancel_ticket_button = ttk.Button(sale_frame, text="Cancel", command=lambda: change_frame(sale_frame, flights_frame), style='redbutton.TButton')
+  cancel_ticket_button = ttk.Button(sale_frame, text="Cancel", command=lambda: change_frame(flights_frame), style='redbutton.TButton')
   cancel_ticket_button.grid(row=3, column=1, sticky=(tk.EW))
 
-  change_frame(flights_frame, sale_frame)
+  change_frame(sale_frame)
 
 
 # ------------------------------------------------------------------------------
 # Set up the main application window
 root = tk.Tk()
 root.title("Airline Ticket Reservation")
-root.geometry("1000x600")
+root.geometry("1400x800")
+
+root.columnconfigure(0, minsize=150)  # Sidebar column
+root.columnconfigure(1, minsize=2)    # Line column
+root.columnconfigure(2, weight=1)     # Main content column
+root.rowconfigure(0, weight=1)
 # ------------------------------------------------------------------------------
 createCustomStyle(root)
 # ------------------------------------------------------------------------------
 # Main frame for layout
 main_frame = ttk.Frame(root, padding="3 3 12 12")
-main_frame.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
-root.columnconfigure(0, weight=1)
-root.rowconfigure(0, weight=1)
+main_frame.grid(column=2, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
+
+# Line
+line = ttk.Frame(root, width=4, relief="sunken")
+line.grid(column=1, row=0, sticky=(tk.N, tk.S))
+
+# Sidebar frame
+sidebar_frame = ttk.Frame(root, width=200)
+sidebar_frame.grid(column=0, row=0, sticky=(tk.N, tk.S))
+
+
+# ------------------------------------------------------------------------------
+# Frame for home frame
+home_frame = ttk.Frame(main_frame, padding="10 10 10 10")
+home_frame.grid(column=0, row=0, sticky=(tk.N, tk.E, tk.S, tk.W))
+home_frame.columnconfigure(1, weight=1)
+
+# Widgets for entering flight search criteria
+home_label = ttk.Label(home_frame, text="Hello, Jan Kowalski!\n\nWelcome to the Airline Ticket Reservation System.")
+home_label.grid(row=0, column=0, sticky=tk.W)
 
 # ------------------------------------------------------------------------------
 # Frame for search flights
 search_flights_frame = ttk.Frame(main_frame, padding="10 10 10 10")
 search_flights_frame.grid(column=0, row=0, sticky=(tk.N, tk.E, tk.S, tk.W))
 search_flights_frame.columnconfigure(1, weight=1)
+search_flights_frame.grid_remove()  # Initially hidden
 
 # Widgets for entering flight search criteria
 from_city_label = ttk.Label(search_flights_frame, text="From City:")
@@ -66,7 +89,7 @@ date_entry = ttk.Entry(search_flights_frame, width=20)
 date_entry.grid(row=2, column=1, sticky=(tk.W, tk.E))
 
 # Button to trigger the flight search
-get_flights_button = ttk.Button(search_flights_frame, text="Search Flights", command=lambda: get_flights(from_city_entry.get(), to_city_entry.get(), date_entry.get(), flights_table, search_flights_frame, flights_frame))
+get_flights_button = ttk.Button(search_flights_frame, text="Search Flights", command=lambda: get_flights(from_city_entry.get(), to_city_entry.get(), date_entry.get(), flights_table, flights_frame))
 get_flights_button.grid(row=3, column=0, columnspan=2, sticky=(tk.EW))
 
 # ------------------------------------------------------------------------------
@@ -107,6 +130,41 @@ pdf_frame = ttk.Frame(main_frame, padding="10 10 10 10")
 pdf_frame.grid(column=0, row=0, sticky=(tk.N, tk.E, tk.S, tk.W))
 pdf_frame.columnconfigure(0, weight=1)
 pdf_frame.grid_remove()  # Initially hidden
+
+# ------------------------------------------------------------------------------
+# Frame for My Reservations
+my_reservations_frame = ttk.Frame(main_frame, padding="10 10 10 10")
+my_reservations_frame.grid(column=0, row=0, sticky=(tk.N, tk.E, tk.S, tk.W))
+my_reservations_frame.columnconfigure(0, weight=1)
+my_reservations_frame.grid_remove()  # Initially hidden
+
+# Table to display the reservations
+my_reservations_table = ttk.Treeview(my_reservations_frame, columns=("Reservation Number", "From City", "To City", "Date", "Time", "Bought For (euro)"), show="headings")
+my_reservations_table.heading("Reservation Number", text="Reservation Number")
+my_reservations_table.heading("From City", text="From City")
+my_reservations_table.heading("To City", text="To City")
+my_reservations_table.heading("Date", text="Date")
+my_reservations_table.heading("Time", text="Time")
+my_reservations_table.heading("Bought For (euro)", text="Bought For (euro)")
+my_reservations_table.pack(fill=tk.BOTH, expand=True)
+
+# ------------------------------------------------------------------------------
+# Frame for my reservations
+pdf_frame = ttk.Frame(main_frame, padding="10 10 10 10")
+pdf_frame.grid(column=0, row=0, sticky=(tk.N, tk.E, tk.S, tk.W))
+pdf_frame.columnconfigure(0, weight=1)
+pdf_frame.grid_remove()  # Initially hidden
+
+# ------------------------------------------------------------------------------
+# Adding buttons to the sidebar
+home_button = ttk.Button(sidebar_frame, text="Home", style='sidebar.TButton', command=lambda: change_frame(home_frame))
+home_button.pack(fill=tk.X, pady=5)
+
+search_button = ttk.Button(sidebar_frame, text="Search Flights", style='sidebar.TButton', command=lambda: change_frame(search_flights_frame))
+search_button.pack(fill=tk.X, pady=5)
+
+my_reservations_button = ttk.Button(sidebar_frame, text="My Reservations", style='sidebar.TButton', command=lambda: get_reservations(my_reservations_table, my_reservations_frame))
+my_reservations_button.pack(fill=tk.X, pady=5)
 
 # ------------------------------------------------------------------------------
 # Pre-filled values
