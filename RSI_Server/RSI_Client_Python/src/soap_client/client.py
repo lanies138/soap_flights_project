@@ -4,15 +4,29 @@ import fitz
 
 # WSDL
 from zeep import Client
+from zeep.transports import Transport
+import requests
 
 # Custom imports
 from src.model.flight import Flight
 from src.model.ticket import Ticket
 from src.utils.helpers import change_frame
 
-# SOAP client setup
-wsdl_url = 'http://localhost:8080/ws/reservations.wsdl'
-client = Client(wsdl=wsdl_url)
+# command for .cer: keytool -export -keystore ../../RSI_Server_java/src/main/resources/keystore.p12 -alias myalias -file ../resources/mycertificate.cer -storepass password
+# command for .pem: openssl x509 -inform der -in ../resources/mycertificate.cer -out ../resources/mycertificate.pem
+
+# Create a session object that uses the certificate
+session = requests.Session()
+session.verify = 'resources/mycertificate.pem'
+
+# Create a transport object for Zeep using this session
+transport = Transport(session=session)
+
+# URL to your WSDL
+wsdl_url = 'https://localhost:8443/ws/reservations.wsdl'
+
+# Create a Zeep client using the transport
+client = Client(wsdl=wsdl_url, transport=transport)
 
 
 def get_flights(from_city, to_city, date_entry, flights_table, flights_frame):
